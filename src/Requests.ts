@@ -19,9 +19,11 @@ export default class Requests {
     }
 
     private static postStatus() {
+        const status = GerarDados.booleano;
+
         const body: StatusRequest = {
-            status: GerarDados.booleano,
-            velocidade: GerarDados.velocidade
+            status,
+            velocidade: (status) ? GerarDados.velocidade : '0m/s'
         };
 
         this.fetch<StatusRequest>('/status', body);
