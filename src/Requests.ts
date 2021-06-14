@@ -1,20 +1,20 @@
-import GerarDados from '@util/gerarDados';
+import GerarDados from './util/gerarDados';
 import fetch from 'node-fetch';
-import { postSensores, postStatus } from './api';
-import { APIConfig, SensoresRequest, StatusRequest } from './interfaces';
+import { post } from './api';
+import { SensoresRequest, StatusRequest } from './interfaces';
 
 export default class Requests {
-    private static async fetch(config: APIConfig) {
+    private static async fetch<T>(endpoint: string, body: T) {
         try {
-            const { url, options } = config;
+            const { url, options } = post<T>(endpoint, body);
             const res = await fetch(url, options);
             const json = await res.json();
 
             if (res.status !== 201) throw new Error(json.mensagem);
 
-            console.log('Novo status enviado com sucesso!');
+            console.log(`Dado enviado para ${endpoint} com sucesso!`);
         } catch({ message }) {
-            console.log(`Erro ao enviar novo status: ${message}`);
+            console.log(`Erro ao enviar dado para ${endpoint}: ${message}`);
         }
     }
 
@@ -24,7 +24,7 @@ export default class Requests {
             velocidade: GerarDados.velocidade
         };
 
-        this.fetch(postStatus(body));
+        this.fetch<StatusRequest>('/status', body);
     }
 
     public static postSensores() {
@@ -34,6 +34,6 @@ export default class Requests {
             condicao: GerarDados.booleano
         };
 
-        this.fetch(postSensores(body));
+        this.fetch<SensoresRequest>('/sensores', body);
     }
 }
