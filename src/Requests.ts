@@ -12,13 +12,13 @@ export default class Requests {
 
             if (res.status !== 201) throw new Error(json.mensagem);
 
-            console.log(`Dado enviado para ${endpoint} com sucesso!`);
+            console.log(`Dados enviado para ${endpoint} com sucesso!`);
         } catch({ message }) {
             console.log(`Erro ao enviar dado para ${endpoint}: ${message}`);
         }
     }
 
-    public static postStatus() {
+    private static postStatus() {
         const body: StatusRequest = {
             status: GerarDados.booleano,
             velocidade: GerarDados.velocidade
@@ -27,7 +27,7 @@ export default class Requests {
         this.fetch<StatusRequest>('/status', body);
     }
 
-    public static postSensores() {
+    private static postSensores() {
         const body: SensoresRequest = {
             nome: GerarDados.nome,
             status: GerarDados.booleano,
@@ -35,5 +35,10 @@ export default class Requests {
         };
 
         this.fetch<SensoresRequest>('/sensores', body);
+    }
+
+    public static enviarRequest(): void {
+        this.postStatus();
+        this.postSensores();
     }
 }
