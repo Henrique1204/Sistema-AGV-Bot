@@ -6,7 +6,7 @@ export interface StatusRequest {
 export interface SensoresRequest {
     nome: string;
     status: boolean;
-    conidcao: boolean;
+    condicao: boolean;
 }
 
 export interface OptionsPostFetch {

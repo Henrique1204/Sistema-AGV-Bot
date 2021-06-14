@@ -1,4 +1,4 @@
-import { APIConfig, StatusRequest } from "./interfaces";
+import { APIConfig, SensoresRequest, StatusRequest } from "./interfaces";
 
 const urlBase = 'http://localhost:8000';
 
@@ -13,7 +13,7 @@ export const postStatus = (body: StatusRequest): APIConfig => ({
     }
 });
 
-export const postSensores = (body: StatusRequest): APIConfig => ({
+export const postSensores = (body: SensoresRequest): APIConfig => ({
     url: `${urlBase}/sensores`,
     options: {
         method: 'POST',
